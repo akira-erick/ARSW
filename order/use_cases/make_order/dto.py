@@ -4,9 +4,9 @@ from dataclasses import dataclass
 class MakeOrderDTO:
     customerName: str
     item: str
-    quantity: int
+    quantity: str
 
 @dataclass
 class MakeOrderResponseDTO:
-    orderId: str
+    orderId: int
     status: str
