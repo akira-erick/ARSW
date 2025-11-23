@@ -1,11 +1,30 @@
 import os
-from flask import Flask
+from flask import Flask, request
+from .use_cases.make_order.dto import MakeOrderDTO
+from .use_cases.make_order.handler import make_order_handler
 
 app = Flask(__name__)
 
 @app.route('/order', methods=['POST'])
 def make_order():
-    return "Order service is running!"
+    data = request.get_json()
+    if not data:
+        return {"error": "Missing data"}, 400
+    try:
+        customer_name = data['customerName']
+        item = data['item']
+        quantity = data['quantity']
+
+        dto: MakeOrderDTO = MakeOrderDTO(
+            customerName=customer_name,
+            item=item,
+            quantity=quantity
+        )
+        response = make_order_handler(data=dto)
+
+        return response
+    except KeyError as e:
+        return {"error": f"Missing field: {str(e)}"}, 400
 
 @app.route('/order/compensate', methods=['POST'])
 def make_order_compensation():
