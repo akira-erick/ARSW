@@ -13,3 +13,19 @@ services:
     volumes:
      - ./initdb:/docker-entrypoint-initdb.d
     restart: always
+
+  order_service:
+    build: ./order
+    container_name: order_service
+    environment:
+      HOST_PORT_ORDER: ${HOST_PORT_ORDER} 
+      DB_HOST: db  
+      DB_PORT: 5432  
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
+    ports:
+      - "${HOST_PORT_ORDER}:8081"
+    depends_on:
+      - db
+    restart: always  
