@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.arsw</groupId>
-	<artifactId>orchestrator</artifactId>
+	<artifactId>payment</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>orchestrator</name>
-	<description>Orchestrator</description>
+	<name>payment</name>
+	<description>Payment module</description>
 	<url/>
 	<licenses>
 		<license/>

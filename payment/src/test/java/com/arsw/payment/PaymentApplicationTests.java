@@ -1,10 +1,10 @@
-package com.arsw.orchestrator;
+package com.arsw.payment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OrchestratorApplicationTests {
+class PaymentApplicationTests {
 
 	@Test
 	void contextLoads() {
