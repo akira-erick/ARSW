@@ -1,6 +1,4 @@
 from .dto import MakeOrderResponseDTO, MakeOrderDTO
-import os
-import uuid
 from flask import jsonify
 
 def make_order_handler(connection, data: MakeOrderDTO):

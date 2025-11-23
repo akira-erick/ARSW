@@ -31,6 +31,9 @@ CREATE TABLE IF NOT EXISTS stock_table (
     quantity INT NOT NULL
 );
 
+ALTER TABLE stock_table
+ADD CONSTRAINT quantity_non_negative CHECK (quantity >= 0);
+
 INSERT INTO stock_table (item, quantity) VALUES
 ('Laptop', 50),
 ('Smartphone', 100),

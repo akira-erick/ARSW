@@ -1,0 +1,23 @@
+meta {
+  name: stock
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://127.0.0.1:8083/stock/reduct
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 1,
+    "quantity": 1
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

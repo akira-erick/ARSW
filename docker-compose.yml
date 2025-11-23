@@ -28,4 +28,20 @@ services:
       - "${HOST_PORT_ORDER}:8081"
     depends_on:
       - db
-    restart: always  
+    restart: always
+
+  stock_service:
+    build: ./stock
+    container_name: stock_service
+    environment:
+      HOST_PORT_STOCK: ${HOST_PORT_STOCK} 
+      DB_HOST: db  
+      DB_PORT: 5432  
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
+    ports:
+      - "${HOST_PORT_STOCK}:8083"
+    depends_on:
+      - db
+    restart: always
