@@ -30,6 +30,22 @@ services:
       - db
     restart: always
 
+  payment_service:
+    build: ./payment
+    container_name: payment_service
+    environment:
+      HOST_PORT_PAYMENT: ${HOST_PORT_PAYMENT} 
+      DB_HOST: db  
+      DB_PORT: 5432  
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
+    ports:
+      - "${HOST_PORT_PAYMENT}:8082"
+    depends_on:
+      - db
+    restart: always
+
   stock_service:
     build: ./stock
     container_name: stock_service
