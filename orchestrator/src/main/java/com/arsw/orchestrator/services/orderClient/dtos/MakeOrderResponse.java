@@ -1,7 +1,7 @@
 package com.arsw.orchestrator.services.orderClient.dtos;
 
 public record MakeOrderResponse(
-        int orderId,
+        Integer orderId,
         String status
 ) {
 }

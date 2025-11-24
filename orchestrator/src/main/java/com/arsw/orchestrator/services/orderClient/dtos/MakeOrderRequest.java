@@ -2,7 +2,7 @@ package com.arsw.orchestrator.services.orderClient.dtos;
 
 public record MakeOrderRequest(
         String customerName,
-        int item,
-        int quantity
+        Integer item,
+        Integer quantity
 ) {
 }

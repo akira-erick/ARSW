@@ -1,10 +1,10 @@
 package com.arsw.orchestrator.services.orchestratorService.dtos;
 
 public record BuyResponse(
-        int orderId,
+        Integer orderId,
         String orderStatus,
-        int paymentId,
+        Integer paymentId,
         String paymentStatus,
-        int stockQuantity
+        Integer stockQuantity
 ) {
 }

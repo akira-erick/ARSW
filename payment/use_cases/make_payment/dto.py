@@ -8,5 +8,5 @@ class MakePaymentDTO:
 
 @dataclass
 class MakePaymentResponseDTO:
-    id: int
+    paymentId: int
     status: str

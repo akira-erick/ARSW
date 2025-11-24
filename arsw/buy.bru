@@ -1,20 +1,22 @@
 meta {
-  name: order
+  name: buy
   type: http
-  seq: 2
+  seq: 4
 }
 
 post {
-  url: http://127.0.0.1⁠:8081/order
+  url: http://localhost:8080/buy/
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "customerName": "gabriel",
+    "customerName": "eu",
     "item": 1,
-    "quantity": 1
+    "quantity": 1,
+    "amount": 10.0,
+    "work": true
   }
 }
 

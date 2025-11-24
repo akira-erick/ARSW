@@ -9,8 +9,10 @@ import com.arsw.orchestrator.services.paymentClient.PaymentServiceClient;
 import com.arsw.orchestrator.services.paymentClient.dtos.MakePaymentRequest;
 import com.arsw.orchestrator.services.stockClient.StockServiceClient;
 import com.arsw.orchestrator.services.stockClient.dtos.ReductStockRequest;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+@Service
 public class OrchestratorService {
     private OrderServiceClient orderServiceClient;
     private PaymentServiceClient paymentServiceClient;
