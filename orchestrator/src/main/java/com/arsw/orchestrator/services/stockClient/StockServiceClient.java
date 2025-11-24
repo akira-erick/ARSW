@@ -16,7 +16,7 @@ public class StockServiceClient {
                 .build();
     }
 
-    public Mono<ReductStockResponse> callMakeOrder(ReductStockRequest request) {
+    public Mono<ReductStockResponse> callReduction(ReductStockRequest request) {
         return webClient.post()
                 .uri("/order")
                 .bodyValue(request)

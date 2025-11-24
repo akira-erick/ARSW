@@ -7,10 +7,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
-public class OrderServiceAClient {
+public class OrderServiceClient {
     private final WebClient webClient;
 
-    public OrderServiceAClient(WebClient.Builder builder){
+    public OrderServiceClient(WebClient.Builder builder){
         this.webClient = builder
                 .baseUrl("http://localhost:8081")
                 .build();

@@ -17,7 +17,7 @@ public class PaymentServiceClient {
                 .build();
     }
 
-    public Mono<MakePaymentResponse> callMakeOrder(MakePaymentRequest request) {
+    public Mono<MakePaymentResponse> callMakePayment(MakePaymentRequest request) {
         return webClient.post()
                 .uri("/payment")
                 .bodyValue(request)

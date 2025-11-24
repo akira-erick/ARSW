@@ -1,16 +1,16 @@
 CREATE TABLE IF NOT EXISTS order_table (
     id SERIAL PRIMARY KEY,
     customer_name VARCHAR(100) NOT NULL,
-    item VARCHAR(100) NOT NULL,
+    item INT NOT NULL,
     quantity INT NOT NULL,
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     order_status VARCHAR(50) NOT NULL
 );
 
 INSERT INTO order_table (customer_name, item, quantity, order_status) VALUES
-('Alice', 'Laptop', 1, 'Processing'),
-('Bob', 'Smartphone', 2, 'Shipped'),
-('Charlie', 'Headphones', 3, 'Delivered');
+('Alice', 1, 1, 'Processing'),
+('Bob', 2, 2, 'Shipped'),
+('Charlie', 3, 3, 'Delivered');
 
 CREATE TABLE IF NOT EXISTS payment_table (
     id SERIAL PRIMARY KEY,

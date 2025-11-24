@@ -3,7 +3,7 @@ from dataclasses import dataclass
 @dataclass
 class MakeOrderDTO:
     customerName: str
-    item: str
+    item: int
     quantity: int
 
 @dataclass
