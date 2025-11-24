@@ -15,6 +15,6 @@ def make_payment_handler(connection, data: MakePaymentDTO):
     connection.commit()
     cur.close()
 
-    response_dto: MakePaymentResponseDTO = MakePaymentResponseDTO(paymentId=str(payment_id), status=str(status))
+    response_dto: MakePaymentResponseDTO = MakePaymentResponseDTO(id=str(payment_id), status=str(status))
 
     return jsonify(response_dto), 201

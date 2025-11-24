@@ -1,0 +1,26 @@
+package com.arsw.orchestrator.services.stockClient;
+
+import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderRequest;
+import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderResponse;
+import com.arsw.orchestrator.services.stockClient.dtos.ReductStockRequest;
+import com.arsw.orchestrator.services.stockClient.dtos.ReductStockResponse;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+public class StockServiceClient {
+    private final WebClient webClient;
+
+    public StockServiceClient(WebClient.Builder builder){
+        this.webClient = builder
+                .baseUrl("http://localhost:8083")
+                .build();
+    }
+
+    public Mono<ReductStockResponse> callMakeOrder(ReductStockRequest request) {
+        return webClient.post()
+                .uri("/order")
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(ReductStockResponse.class);
+    }
+}
