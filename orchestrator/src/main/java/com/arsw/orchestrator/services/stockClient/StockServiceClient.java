@@ -1,7 +1,4 @@
 package com.arsw.orchestrator.services.stockClient;
-
-import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderRequest;
-import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderResponse;
 import com.arsw.orchestrator.services.stockClient.dtos.ReductStockRequest;
 import com.arsw.orchestrator.services.stockClient.dtos.ReductStockResponse;
 import org.springframework.stereotype.Service;
@@ -13,8 +10,18 @@ public class StockServiceClient {
     private final WebClient webClient;
 
     public StockServiceClient(WebClient.Builder builder){
+        String host = System.getenv("STOCK_SERVICE_HOST");
+        String port = System.getenv("STOCK_SERVICE_PORT");
+
+        if (host == null || port == null) {
+            throw new RuntimeException("Environment variables are missing");
+        }
+
+        String baseUrl = "http://" + host + ":" + port;
+        System.out.println("Order service base URL = " + baseUrl);
+
         this.webClient = builder
-                .baseUrl("http://localhost:8083")
+                .baseUrl(baseUrl)
                 .build();
     }
 

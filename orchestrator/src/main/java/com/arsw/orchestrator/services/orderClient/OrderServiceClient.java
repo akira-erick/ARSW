@@ -11,12 +11,23 @@ public class OrderServiceClient {
     private final WebClient webClient;
 
     public OrderServiceClient(WebClient.Builder builder){
+        String host = System.getenv("ORDER_SERVICE_HOST");
+        String port = System.getenv("ORDER_SERVICE_PORT");
+
+        if (host == null || port == null) {
+            throw new RuntimeException("Environment variables are missing");
+        }
+
+        String baseUrl = "http://" + host + ":" + port;
+        System.out.println("Order service base URL = " + baseUrl);
+
         this.webClient = builder
-                .baseUrl("http://localhost:8081")
+                .baseUrl(baseUrl)
                 .build();
     }
 
     public Mono<MakeOrderResponse> callMakeOrder(MakeOrderRequest request) {
+        System.out.println(request.customerName());
         return webClient.post()
                 .uri("/order")
                 .bodyValue(request)

@@ -35,6 +35,10 @@ def reduct_stock():
 def reduct_stock_compensation():
     return "Stock reduction compensation executed!"
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return "Order service is healthy!"
+
 if __name__ == '__main__':
     port = int(os.getenv('HOST_PORT_STOCK', 8083))
     app.run(debug=True, host='0.0.0.0', port = port, use_reloader=False)

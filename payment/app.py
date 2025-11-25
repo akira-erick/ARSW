@@ -37,6 +37,10 @@ def make_payment():
 def make_payment_compensation():
     return "Payment compensation executed!"
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return "Order service is healthy!"
+
 if __name__ == '__main__':
     port = int(os.getenv('HOST_PORT_PAYMENT', 8082))
     app.run(debug=True, host='0.0.0.0', port = port, use_reloader=False)

@@ -1,6 +1,5 @@
 package com.arsw.orchestrator.services.paymentClient;
 
-import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderResponse;
 import com.arsw.orchestrator.services.paymentClient.dtos.MakePaymentRequest;
 import com.arsw.orchestrator.services.paymentClient.dtos.MakePaymentResponse;
 import org.springframework.stereotype.Service;
@@ -12,8 +11,18 @@ public class PaymentServiceClient {
     private final WebClient webClient;
 
     public PaymentServiceClient(WebClient.Builder builder){
+        String host = System.getenv("PAYMENT_SERVICE_HOST");
+        String port = System.getenv("PAYMENT_SERVICE_PORT");
+
+        if (host == null || port == null) {
+            throw new RuntimeException("Environment variables are missing");
+        }
+
+        String baseUrl = "http://" + host + ":" + port;
+        System.out.println("Order service base URL = " + baseUrl);
+
         this.webClient = builder
-                .baseUrl("http://localhost:8082")
+                .baseUrl(baseUrl)
                 .build();
     }
 

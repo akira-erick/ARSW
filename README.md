@@ -1,5 +1,12 @@
 # ARSW
 
+Make orchestrator jar
+
+```
+cd orchestrator
+.\mvnw clean package -DskipTests
+```
+
 Run the project
 
 ```

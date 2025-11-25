@@ -38,6 +38,10 @@ def make_order():
 def make_order_compensation():
     return "Order compensation executed!"
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return "Order service is healthy!"
+
 if __name__ == '__main__':
     port = int(os.getenv('HOST_PORT_ORDER', 8081))
     app.run(debug=True, host='0.0.0.0', port = port, use_reloader=False)

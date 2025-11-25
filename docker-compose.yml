@@ -14,9 +14,9 @@ services:
      - ./initdb:/docker-entrypoint-initdb.d
     restart: always
 
-  order_service:
+  order-service:
     build: ./order
-    container_name: order_service
+    container_name: order-service
     environment:
       HOST_PORT_ORDER: ${HOST_PORT_ORDER} 
       DB_HOST: db  
@@ -30,9 +30,9 @@ services:
       - db
     restart: always
 
-  payment_service:
+  payment-service:
     build: ./payment
-    container_name: payment_service
+    container_name: payment-service
     environment:
       HOST_PORT_PAYMENT: ${HOST_PORT_PAYMENT} 
       DB_HOST: db  
@@ -46,9 +46,9 @@ services:
       - db
     restart: always
 
-  stock_service:
+  stock-service:
     build: ./stock
-    container_name: stock_service
+    container_name: stock-service
     environment:
       HOST_PORT_STOCK: ${HOST_PORT_STOCK} 
       DB_HOST: db  
@@ -60,4 +60,23 @@ services:
       - "${HOST_PORT_STOCK}:8083"
     depends_on:
       - db
+    restart: always
+
+  orchestrator:
+    build: ./orchestrator
+    container_name: orchestrator_service
+    environment:
+      HOST_PORT_ORCHESTRATOR: ${HOST_PORT_ORCHESTRATOR} 
+      ORDER_SERVICE_HOST: order-service
+      ORDER_SERVICE_PORT: 8081
+      PAYMENT_SERVICE_HOST: payment-service
+      PAYMENT_SERVICE_PORT: 8082
+      STOCK_SERVICE_HOST: stock-service
+      STOCK_SERVICE_PORT: 8083
+    ports:
+      - "${HOST_PORT_ORCHESTRATOR}:8080"
+    depends_on:
+      - order-service
+      - payment-service
+      - stock-service
     restart: always
