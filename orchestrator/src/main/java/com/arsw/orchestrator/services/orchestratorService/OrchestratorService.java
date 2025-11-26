@@ -3,6 +3,7 @@ package com.arsw.orchestrator.services.orchestratorService;
 import com.arsw.orchestrator.services.orchestratorService.dtos.BuyRequest;
 import com.arsw.orchestrator.services.orchestratorService.dtos.BuyResponse;
 import com.arsw.orchestrator.services.orderClient.OrderServiceClient;
+import com.arsw.orchestrator.services.orderClient.dtos.ChangeOrderStatusRequest;
 import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderRequest;
 import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderResponse;
 import com.arsw.orchestrator.services.paymentClient.PaymentServiceClient;
@@ -45,7 +46,15 @@ public class OrchestratorService {
                                 new ReductStockRequest(
                                         request.item(),
                                         request.quantity()
-                                )).map(stockResponse ->
+                                ))
+                                .doOnSuccess(reductStockResponse -> {
+                                    orderServiceClient.callChageOrderStatus(
+                                            new ChangeOrderStatusRequest(
+                                                    orderResponse.orderId(),
+                                                    "COMPLETED"
+                                            )).subscribe();
+                                })
+                                .map(stockResponse ->
                                 new BuyResponse(
                                         orderResponse.orderId(),
                                         orderResponse.status(),

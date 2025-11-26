@@ -1,5 +1,7 @@
 package com.arsw.orchestrator.services.orderClient;
 
+import com.arsw.orchestrator.services.orderClient.dtos.ChangeOrderStatusRequest;
+import com.arsw.orchestrator.services.orderClient.dtos.ChangeOrderStatusResponse;
 import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderRequest;
 import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderResponse;
 import org.springframework.stereotype.Service;
@@ -33,5 +35,13 @@ public class OrderServiceClient {
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(MakeOrderResponse.class);
+    }
+
+    public Mono<ChangeOrderStatusResponse> callChageOrderStatus(ChangeOrderStatusRequest request) {
+        return webClient.post()
+                .uri("/order/status")
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(ChangeOrderStatusResponse.class);
     }
 }

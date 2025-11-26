@@ -6,6 +6,9 @@ from .db_service import get_db_connection
 from .use_cases.make_order.dto import MakeOrderDTO
 from .use_cases.make_order.handler import make_order_handler
 
+from.use_cases.change_status.dto import ChangeStatusDTO
+from.use_cases.change_status.handler import change_order_status_handler
+
 app = Flask(__name__)
 
 @app.route('/order', methods=['POST'])
@@ -26,6 +29,29 @@ def make_order():
             quantity=quantity
         )
         response = make_order_handler(connection=conn, data=dto)
+
+        return response
+    except KeyError as e:
+        return jsonify({"error": f"Missing field: {str(e)}"}), 400
+    finally:
+        conn.close()
+
+@app.route("/order/status", methods=['PUT'])
+def change_order_status():
+    conn = get_db_connection()
+
+    data = request.get_json()
+    if not data:
+        return {"error": "Missing data"}, 400
+    try:
+        order_id = data['orderId']
+        status = data['status']
+
+        dto: ChangeStatusDTO = ChangeStatusDTO(
+            orderId=order_id,
+            status=status
+        )
+        response = change_order_status_handler(connection=conn, data=dto)
 
         return response
     except KeyError as e:
