@@ -6,6 +6,9 @@ from .db_service import get_db_connection
 from .use_cases.make_payment.dto import MakePaymentDTO
 from .use_cases.make_payment.handler import make_payment_handler
 
+from .use_cases.make_payment_compensation.dto import MakePaymentCompensationDTO
+from .use_cases.make_payment_compensation.handler import make_payment_compensation_handler
+
 app = Flask(__name__)
 
 @app.route('/payment', methods=['POST'])
@@ -35,7 +38,26 @@ def make_payment():
 
 @app.route('/payment/compensate', methods=['POST'])
 def make_payment_compensation():
-    return "Payment compensation executed!"
+    conn = get_db_connection()
+
+    data = request.get_json()
+    if not data:
+        return {"result": "FAILED"}, 400
+    try:
+        payment_id = data['paymentId']
+        reason = data['reason']
+
+        dto: MakePaymentCompensationDTO = MakePaymentCompensationDTO(
+            paymentId=payment_id,
+            reason=reason
+        )
+        response = make_payment_compensation_handler(connection=conn, data=dto)
+
+        return response
+    except KeyError as e:
+        return jsonify({"result": "FAILED"}), 400
+    finally:
+        conn.close()
 
 @app.route('/health', methods=['GET'])
 def health_check():

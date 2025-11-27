@@ -9,6 +9,9 @@ from .use_cases.make_order.handler import make_order_handler
 from.use_cases.change_status.dto import ChangeStatusDTO
 from.use_cases.change_status.handler import change_order_status_handler
 
+from .use_cases.make_order_compensation.dto import MakeOrderCompensationDTO
+from .use_cases.make_order_compensation.handler import make_order_compensation_handler
+
 app = Flask(__name__)
 
 @app.route('/order', methods=['POST'])
@@ -62,7 +65,26 @@ def change_order_status():
 
 @app.route('/order/compensate', methods=['POST'])
 def make_order_compensation():
-    return "Order compensation executed!"
+    conn = get_db_connection()
+
+    data = request.get_json()
+    if not data:
+        return {"result": "FAILED"}, 400
+    try:
+        order_id = data['orderId']
+        reason = data['reason']
+
+        dto: MakeOrderCompensationDTO = MakeOrderCompensationDTO(
+            orderId=order_id,
+            reason=reason
+        )
+        response = make_order_compensation_handler(connection=conn, data=dto)
+
+        return response
+    except KeyError as e:
+        return jsonify({"result": "FAILED"}), 400
+    finally:
+        conn.close()
 
 @app.route('/health', methods=['GET'])
 def health_check():
