@@ -46,21 +46,21 @@ public class OrchestratorService {
                                 new ReductStockRequest(
                                         request.item(),
                                         request.quantity()
-                                ))
-                                .doOnSuccess(reductStockResponse -> {
-                                    orderServiceClient.callChageOrderStatus(
-                                            new ChangeOrderStatusRequest(
-                                                    orderResponse.orderId(),
-                                                    "COMPLETED"
-                                            )).subscribe();
-                                })
-                                .map(stockResponse ->
-                                new BuyResponse(
-                                        orderResponse.orderId(),
-                                        orderResponse.status(),
-                                        paymentResponse.paymentId(),
-                                        paymentResponse.status(),
-                                        stockResponse.quantity())
+                                )).flatMap(reductStockResponse ->
+                                            orderServiceClient.callChageOrderStatus(
+                                                    new ChangeOrderStatusRequest(
+                                                            orderResponse.orderId(),
+                                                            "Completed"
+                                                    )).map(changeOrderStatusResponse ->
+                                                    new BuyResponse(
+                                                            orderResponse.orderId(),
+                                                            changeOrderStatusResponse.status(),
+                                                            paymentResponse.paymentId(),
+                                                            paymentResponse.status(),
+                                                            reductStockResponse.quantity()
+                                                    )
+                                )
+
                         )
                 )
         );

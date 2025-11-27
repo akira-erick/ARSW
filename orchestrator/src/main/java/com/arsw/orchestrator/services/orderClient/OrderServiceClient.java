@@ -38,7 +38,7 @@ public class OrderServiceClient {
     }
 
     public Mono<ChangeOrderStatusResponse> callChageOrderStatus(ChangeOrderStatusRequest request) {
-        return webClient.post()
+        return webClient.put()
                 .uri("/order/status")
                 .bodyValue(request)
                 .retrieve()

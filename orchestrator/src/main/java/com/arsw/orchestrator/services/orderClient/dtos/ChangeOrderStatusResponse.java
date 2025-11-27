@@ -1,4 +1,7 @@
 package com.arsw.orchestrator.services.orderClient.dtos;
 
-public record ChangeOrderStatusResponse() {
+public record ChangeOrderStatusResponse(
+        Integer orderId,
+        String status
+) {
 }

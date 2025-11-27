@@ -1,4 +1,5 @@
-from .dto import ChangeStatusDTO
+from .dto import ChangeStatusDTO, ChangeStatusOutputDTO
+from flask import jsonify
 
 def change_order_status_handler(connection, data: ChangeStatusDTO):
     cur = connection.cursor()
@@ -7,4 +8,6 @@ def change_order_status_handler(connection, data: ChangeStatusDTO):
     connection.commit()
     cur.close()
 
-    return "", 204
+    response_dto: ChangeStatusOutputDTO = ChangeStatusOutputDTO(orderId=data.orderId, status=data.status)
+
+    return jsonify(response_dto), 200
