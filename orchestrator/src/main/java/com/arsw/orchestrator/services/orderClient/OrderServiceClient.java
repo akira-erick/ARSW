@@ -1,9 +1,6 @@
 package com.arsw.orchestrator.services.orderClient;
 
-import com.arsw.orchestrator.services.orderClient.dtos.ChangeOrderStatusRequest;
-import com.arsw.orchestrator.services.orderClient.dtos.ChangeOrderStatusResponse;
-import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderRequest;
-import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderResponse;
+import com.arsw.orchestrator.services.orderClient.dtos.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -43,5 +40,13 @@ public class OrderServiceClient {
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(ChangeOrderStatusResponse.class);
+    }
+
+    public Mono<MakeOrderCompensationResponse> callMakeOrderCompensation(MakeOrderCompensationRequest request) {
+        return webClient.post()
+                .uri("/order/compensate")
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(MakeOrderCompensationResponse.class);
     }
 }

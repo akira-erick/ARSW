@@ -1,5 +1,7 @@
 package com.arsw.orchestrator.services.paymentClient;
 
+import com.arsw.orchestrator.services.paymentClient.dtos.MakePaymentCompensationRequest;
+import com.arsw.orchestrator.services.paymentClient.dtos.MakePaymentCompensationResponse;
 import com.arsw.orchestrator.services.paymentClient.dtos.MakePaymentRequest;
 import com.arsw.orchestrator.services.paymentClient.dtos.MakePaymentResponse;
 import org.springframework.stereotype.Service;
@@ -32,5 +34,13 @@ public class PaymentServiceClient {
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(MakePaymentResponse.class);
+    }
+
+    public Mono<MakePaymentCompensationResponse> callMakePaymentCompensation(MakePaymentCompensationRequest request) {
+        return webClient.post()
+                .uri("/payment/compensate")
+                .bodyValue(request)
+                .retrieve()
+                .bodyToMono(MakePaymentCompensationResponse.class);
     }
 }
