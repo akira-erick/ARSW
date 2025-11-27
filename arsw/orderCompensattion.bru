@@ -1,0 +1,23 @@
+meta {
+  name: orderCompensattion
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://127.0.0.1⁠:8081/order/compensation
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "orderId": 1,
+    "reason": "OUT_OF_STOCK"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

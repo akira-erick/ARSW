@@ -15,6 +15,6 @@ def make_payment_compensation_handler(connection, data: MakePaymentCompensationD
     connection.commit()
     cur.close()
 
-    response_dto: MakePaymentCompensationResponseDTO = MakePaymentCompensationResponseDTO(status=str("SUCCESS"))
+    response_dto: MakePaymentCompensationResponseDTO = MakePaymentCompensationResponseDTO(result=str("SUCCESS"))
 
     return jsonify(response_dto), 200

@@ -1,0 +1,23 @@
+meta {
+  name: paymentCompensation
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://127.0.0.1:8082/payment/compensate
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "paymentId": 1,
+    "reason": "OUT_OF_STOCK"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

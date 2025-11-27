@@ -20,6 +20,6 @@ def reduct_stock_handler(connection, data: ReductStockDTO):
         return jsonify(response_dto), 200
     except IntegrityError:
         connection.rollback()
-        return jsonify({"error": "Insufficient stock"}), 400
+        return jsonify({"error": "Insufficient stock"}), 422
     finally:
         cur.close()
