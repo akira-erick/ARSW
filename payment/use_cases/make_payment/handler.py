@@ -3,7 +3,7 @@ from flask import jsonify
 
 def make_payment_handler(connection, data: MakePaymentDTO):
 
-    if data.work is False:
+    if data.amount > 1000:
         return jsonify({"error": "Simulated payment failure"}), 402
 
     status = "Processed"

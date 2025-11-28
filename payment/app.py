@@ -21,12 +21,10 @@ def make_payment():
     try:
         order_id = data['orderId']
         amount = data['amount']
-        work = data["work"]
 
         dto: MakePaymentDTO = MakePaymentDTO(
             orderId=order_id,
-            amount=amount,
-            work=work
+            amount=amount
         )
         response = make_payment_handler(connection=conn, data=dto)
 

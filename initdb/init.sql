@@ -7,11 +7,6 @@ CREATE TABLE IF NOT EXISTS order_table (
     order_status VARCHAR(50) NOT NULL
 );
 
-INSERT INTO order_table (customer_name, item, quantity, order_status) VALUES
-('Alice', 1, 1, 'Processing'),
-('Bob', 2, 2, 'Shipped'),
-('Charlie', 3, 3, 'Delivered');
-
 CREATE TABLE IF NOT EXISTS payment_table (
     id SERIAL PRIMARY KEY,
     order_id INT NOT NULL,
@@ -19,11 +14,6 @@ CREATE TABLE IF NOT EXISTS payment_table (
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     payment_status VARCHAR(50) NOT NULL
 );
-
-INSERT INTO payment_table (order_id, amount, payment_status) VALUES
-(1, 999.99, 'Completed'),
-(2, 499.98, 'Pending'),
-(3, 149.97, 'Completed');
 
 CREATE TABLE IF NOT EXISTS stock_table (
     id SERIAL PRIMARY KEY,

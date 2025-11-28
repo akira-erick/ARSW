@@ -8,7 +8,6 @@ import com.arsw.orchestrator.services.orderClient.OrderServiceClient;
 import com.arsw.orchestrator.services.orderClient.dtos.ChangeOrderStatusRequest;
 import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderCompensationRequest;
 import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderRequest;
-import com.arsw.orchestrator.services.orderClient.dtos.MakeOrderResponse;
 import com.arsw.orchestrator.services.paymentClient.PaymentServiceClient;
 import com.arsw.orchestrator.services.paymentClient.dtos.MakePaymentCompensationRequest;
 import com.arsw.orchestrator.services.paymentClient.dtos.MakePaymentRequest;
@@ -46,8 +45,7 @@ public class OrchestratorService {
                 paymentServiceClient.callMakePayment(
                         new MakePaymentRequest(
                                 orderResponse.orderId(),
-                                request.amount(),
-                                request.work()
+                                request.amount()
                         )
                 )
                         .onErrorResume( error ->

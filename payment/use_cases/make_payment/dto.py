@@ -4,7 +4,6 @@ from dataclasses import dataclass
 class MakePaymentDTO:
     orderId: int
     amount: float
-    work: bool
 
 @dataclass
 class MakePaymentResponseDTO:
